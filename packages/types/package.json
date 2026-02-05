@@ -1,0 +1,17 @@
+{
+  "name": "@ensemble/types",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Shared TypeScript types for Ensemble monorepo",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "clean": "rm -rf dist",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@ensemble/tsconfig": "workspace:*",
+    "typescript": "^5.3.3"
+  }
+}
