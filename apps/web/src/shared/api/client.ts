@@ -1,6 +1,15 @@
 import axios, { AxiosError, InternalAxiosRequestConfig } from 'axios';
 import { env } from '@/shared/config';
 
+// Separate client for auth operations - no interceptors to avoid refresh loop
+export const authClient = axios.create({
+  baseURL: `${env.API_URL}/api`,
+  withCredentials: true,
+  headers: {
+    'Content-Type': 'application/json',
+  },
+});
+
 export const apiClient = axios.create({
   baseURL: `${env.API_URL}/api`,
   withCredentials: true,
@@ -32,13 +41,7 @@ apiClient.interceptors.response.use(
   async (error: AxiosError) => {
     const originalRequest = error.config as InternalAxiosRequestConfig & {
       _retry?: boolean;
-      _skipRefresh?: boolean;
     };
-
-    // Skip refresh for requests that explicitly don't want it
-    if (originalRequest._skipRefresh) {
-      return Promise.reject(error);
-    }
 
     // Only try refresh once per request, and not if already refreshing
     if (error.response?.status === 401 && !originalRequest._retry && !isRefreshing) {
@@ -46,7 +49,8 @@ apiClient.interceptors.response.use(
       isRefreshing = true;
 
       try {
-        const response = await apiClient.post('/auth/refresh');
+        // Use authClient to avoid infinite loop - it doesn't have this interceptor
+        const response = await authClient.post('/auth/refresh');
         const newToken = response.data.accessToken;
         setAccessToken(newToken);
         isRefreshing = false;
@@ -55,7 +59,6 @@ apiClient.interceptors.response.use(
       } catch {
         setAccessToken(null);
         isRefreshing = false;
-        // Don't redirect here - let the calling code handle it
         return Promise.reject(error);
       }
     }
@@ -63,12 +66,3 @@ apiClient.interceptors.response.use(
     return Promise.reject(error);
   },
 );
-
-// Separate client for auth operations that shouldn't trigger refresh loop
-export const authClient = axios.create({
-  baseURL: `${env.API_URL}/api`,
-  withCredentials: true,
-  headers: {
-    'Content-Type': 'application/json',
-  },
-});
