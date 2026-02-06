@@ -1,6 +1,6 @@
 'use client';
 
-import type { PartCategory } from '@ensemble/types';
+import type { PartCategory } from '@hapzoo/types';
 import { cn } from '@/shared/design';
 
 interface PartOption {

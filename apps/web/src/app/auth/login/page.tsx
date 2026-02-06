@@ -31,8 +31,8 @@ export default function LoginPage() {
     <div className="flex min-h-screen items-center justify-center bg-gray-50 p-4">
       <Card className="w-full max-w-md">
         <CardHeader className="text-center">
-          <CardTitle className="text-2xl">앙상블에 오신 것을 환영합니다</CardTitle>
-          <CardDescription>음악 동호인을 위한 합주 관리 플랫폼</CardDescription>
+          <CardTitle className="text-2xl">HAPZOO에 오신 것을 환영합니다</CardTitle>
+          <CardDescription>Ensemble Playground for Music Communities</CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
           {error && (

@@ -1,4 +1,4 @@
-import type { UserResponse, PartCategory } from '@ensemble/types';
+import type { UserResponse, PartCategory } from '@hapzoo/types';
 
 export interface AuthState {
   user: UserResponse | null;

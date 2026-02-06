@@ -1,5 +1,5 @@
 {
-  "extends": "@ensemble/tsconfig/nextjs.json",
+  "extends": "@hapzoo/tsconfig/nextjs.json",
   "compilerOptions": {
     "paths": {
       "@/*": ["./src/*"],

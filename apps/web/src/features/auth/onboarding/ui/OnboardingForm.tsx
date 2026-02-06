@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import { Button, Input } from '@/shared/ui';
 import { useAuthStore, authApi } from '@/features/auth/session';
 import { PartSelector } from './PartSelector';
-import type { PartCategory } from '@ensemble/types';
+import type { PartCategory } from '@hapzoo/types';
 
 export function OnboardingForm() {
   const router = useRouter();

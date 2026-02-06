@@ -4,7 +4,7 @@ import type {
   GoogleAuthRequest,
   CompleteOnboardingRequest,
 } from '../model/auth.types';
-import type { UserResponse } from '@ensemble/types';
+import type { UserResponse } from '@hapzoo/types';
 
 export const authApi = {
   googleAuth: async (data: GoogleAuthRequest): Promise<AuthResponse> => {

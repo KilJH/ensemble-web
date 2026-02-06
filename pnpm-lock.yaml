@@ -78,13 +78,13 @@ importers:
         specifier: ^7.8.1
         version: 7.8.2
     devDependencies:
-      '@ensemble/eslint-config':
+      '@hapzoo/eslint-config':
         specifier: workspace:*
         version: link:../../packages/config/eslint-config
-      '@ensemble/tsconfig':
+      '@hapzoo/tsconfig':
         specifier: workspace:*
         version: link:../../packages/config/tsconfig
-      '@ensemble/types':
+      '@hapzoo/types':
         specifier: workspace:*
         version: link:../../packages/types
       '@nestjs/cli':
@@ -214,13 +214,13 @@ importers:
         specifier: ^5.0.11
         version: 5.0.11(@types/react@18.3.28)(react@18.3.1)
     devDependencies:
-      '@ensemble/eslint-config':
+      '@hapzoo/eslint-config':
         specifier: workspace:*
         version: link:../../packages/config/eslint-config
-      '@ensemble/tsconfig':
+      '@hapzoo/tsconfig':
         specifier: workspace:*
         version: link:../../packages/config/tsconfig
-      '@ensemble/types':
+      '@hapzoo/types':
         specifier: workspace:*
         version: link:../../packages/types
       '@types/node':
@@ -289,10 +289,10 @@ importers:
         specifier: ^3.22.4
         version: 3.25.76
     devDependencies:
-      '@ensemble/tsconfig':
+      '@hapzoo/tsconfig':
         specifier: workspace:*
         version: link:../config/tsconfig
-      '@ensemble/types':
+      '@hapzoo/types':
         specifier: workspace:*
         version: link:../types
       typescript:
@@ -301,7 +301,7 @@ importers:
 
   packages/types:
     devDependencies:
-      '@ensemble/tsconfig':
+      '@hapzoo/tsconfig':
         specifier: workspace:*
         version: link:../config/tsconfig
       typescript:

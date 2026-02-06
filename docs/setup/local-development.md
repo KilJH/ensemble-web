@@ -19,13 +19,13 @@ brew install postgresql@15
 brew services start postgresql@15
 
 # 데이터베이스 생성
-createdb ensemble_dev
+createdb hapzoo_dev
 ```
 
 ### 접속 확인
 
 ```bash
-psql -d ensemble_dev
+psql -d hapzoo_dev
 # \q 로 종료
 ```
 
@@ -34,14 +34,14 @@ psql -d ensemble_dev
 ### 3.1 Google Cloud Console 프로젝트 생성
 
 1. [Google Cloud Console](https://console.cloud.google.com/) 접속
-2. 새 프로젝트 생성 (예: `ensemble-dev`)
+2. 새 프로젝트 생성 (예: `hapzoo-dev`)
 
 ### 3.2 OAuth 동의 화면 설정
 
 1. **API 및 서비스 > OAuth 동의 화면** 이동
 2. User Type: **외부** 선택
 3. 필수 정보 입력:
-   - 앱 이름: `앙상블 (개발)`
+   - 앱 이름: `HAPZOO (개발)`
    - 사용자 지원 이메일: 본인 이메일
    - 개발자 연락처 정보: 본인 이메일
 4. 범위(Scopes) 추가:
@@ -55,7 +55,7 @@ psql -d ensemble_dev
 1. **API 및 서비스 > 사용자 인증 정보** 이동
 2. **사용자 인증 정보 만들기 > OAuth 클라이언트 ID**
 3. 애플리케이션 유형: **웹 애플리케이션**
-4. 이름: `Ensemble Web (Local)`
+4. 이름: `HAPZOO Web (Local)`
 5. 승인된 리디렉션 URI 추가:
    ```
    http://localhost:3000/auth/callback
@@ -69,7 +69,7 @@ psql -d ensemble_dev
 
 ```env
 # Database
-DATABASE_URL="postgresql://사용자명@localhost:5432/ensemble_dev"
+DATABASE_URL="postgresql://jinhyeok@localhost:5432/hapzoo_dev"
 
 # Server
 NODE_ENV=development

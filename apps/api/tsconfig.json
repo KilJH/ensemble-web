@@ -1,5 +1,5 @@
 {
-  "extends": "@ensemble/tsconfig/nestjs.json",
+  "extends": "@hapzoo/tsconfig/nestjs.json",
   "compilerOptions": {
     "outDir": "./dist",
     "baseUrl": "./",

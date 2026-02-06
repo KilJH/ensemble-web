@@ -1,6 +1,6 @@
-# 앙상블 프로젝트
+# HAPZOO 프로젝트
 
-음악 동호인을 위한 워크스페이스 기반 SaaS (합주/연습/모집/일정 관리)
+HAPZOO - Ensemble Playground for Music Communities (합주/연습/모집/일정 관리)
 
 ## 기술 스택
 

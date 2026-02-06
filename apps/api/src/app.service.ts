@@ -6,15 +6,15 @@ export class AppService {
     return {
       status: 'ok',
       timestamp: new Date().toISOString(),
-      service: 'ensemble-api',
+      service: 'hapzoo-api',
     };
   }
 
   getInfo() {
     return {
-      name: 'Ensemble API',
+      name: 'HAPZOO API',
       version: '0.1.0',
-      description: '음악 동호인을 위한 워크스페이스 기반 SaaS API',
+      description: 'Ensemble Playground for Music Communities',
       endpoints: {
         health: '/api/health',
         docs: '/api/docs (coming soon)',

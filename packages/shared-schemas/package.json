@@ -1,8 +1,8 @@
 {
-  "name": "@ensemble/shared-schemas",
+  "name": "@hapzoo/shared-schemas",
   "version": "0.1.0",
   "private": true,
-  "description": "Shared validation schemas for Ensemble monorepo",
+  "description": "Shared validation schemas for HAPZOO monorepo",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "scripts": {
@@ -14,8 +14,8 @@
     "zod": "^3.22.4"
   },
   "devDependencies": {
-    "@ensemble/tsconfig": "workspace:*",
-    "@ensemble/types": "workspace:*",
+    "@hapzoo/tsconfig": "workspace:*",
+    "@hapzoo/types": "workspace:*",
     "typescript": "^5.3.3"
   }
 }

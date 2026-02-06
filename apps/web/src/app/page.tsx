@@ -10,9 +10,9 @@ export default function Home() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-center p-24">
       <div className="z-10 max-w-5xl w-full items-center justify-center text-sm">
-        <h1 className="text-4xl font-bold text-center mb-4">앙상블 (Ensemble)</h1>
+        <h1 className="text-4xl font-bold text-center mb-4">HAPZOO</h1>
         <p className="text-center text-lg mb-8 text-gray-600">
-          음악 동호인을 위한 워크스페이스 기반 SaaS
+          Ensemble Playground for Music Communities
         </p>
 
         <div className="flex justify-center mb-12">
