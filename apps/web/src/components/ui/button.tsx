@@ -1,12 +1,15 @@
-import { forwardRef, type ButtonHTMLAttributes } from 'react';
+import { forwardRef, type ButtonHTMLAttributes, type ReactNode } from 'react';
+import { cn } from '@/lib/utils';
 
-type ButtonVariant = 'primary' | 'secondary' | 'ghost' | 'danger';
-type ButtonSize = 'sm' | 'md' | 'lg';
+export type ButtonVariant = 'primary' | 'secondary' | 'ghost' | 'outline' | 'danger' | 'link';
+export type ButtonSize = 'sm' | 'md' | 'lg';
 
-interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: ButtonVariant;
   size?: ButtonSize;
   isLoading?: boolean;
+  leftIcon?: ReactNode;
+  rightIcon?: ReactNode;
 }
 
 const variantStyles: Record<ButtonVariant, string> = {
@@ -18,16 +21,28 @@ const variantStyles: Record<ButtonVariant, string> = {
   secondary: `
     bg-secondary text-secondary-foreground
     hover:bg-secondary-hover
+    active:bg-secondary-pressed
   `,
   ghost: `
     bg-transparent text-text
     hover:bg-surface-2
     active:bg-border-muted
   `,
+  outline: `
+    bg-transparent text-primary
+    border border-primary
+    hover:bg-primary-muted
+    active:bg-primary/20
+  `,
   danger: `
     bg-danger text-white
-    hover:bg-red-600
-    active:bg-red-700
+    hover:bg-danger-hover
+    active:bg-danger-pressed
+  `,
+  link: `
+    bg-transparent text-primary
+    underline-offset-4 hover:underline
+    p-0 h-auto
   `,
 };
 
@@ -43,8 +58,10 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       variant = 'primary',
       size = 'md',
       isLoading = false,
+      leftIcon,
+      rightIcon,
       disabled,
-      className = '',
+      className,
       children,
       ...props
     },
@@ -56,20 +73,25 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       <button
         ref={ref}
         disabled={isDisabled}
-        className={`
-          inline-flex items-center justify-center
-          rounded-md font-medium
-          transition-normal
-          focus-ring
-          ${variantStyles[variant]}
-          ${sizeStyles[size]}
-          ${isDisabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}
-          ${className}
-        `}
+        className={cn(
+          // Base styles
+          'inline-flex items-center justify-center',
+          'rounded-md font-medium',
+          'transition-normal',
+          'focus-ring',
+          // Variant & Size
+          variantStyles[variant],
+          variant !== 'link' && sizeStyles[size],
+          // State
+          isDisabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer',
+          className,
+        )}
         {...props}
       >
-        {isLoading && <Spinner className="animate-spin" />}
+        {isLoading && <Spinner />}
+        {!isLoading && leftIcon}
         {children}
+        {!isLoading && rightIcon}
       </button>
     );
   },
@@ -77,10 +99,59 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 
 Button.displayName = 'Button';
 
-function Spinner({ className }: { className?: string }) {
+/* IconButton - Square button for icons only */
+
+export interface IconButtonProps extends Omit<ButtonProps, 'leftIcon' | 'rightIcon' | 'children'> {
+  icon: ReactNode;
+  'aria-label': string;
+}
+
+const iconButtonSizeStyles: Record<ButtonSize, string> = {
+  sm: 'h-8 w-8',
+  md: 'h-10 w-10',
+  lg: 'h-12 w-12',
+};
+
+export const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
+  (
+    { variant = 'ghost', size = 'md', isLoading = false, icon, disabled, className, ...props },
+    ref,
+  ) => {
+    const isDisabled = disabled || isLoading;
+
+    return (
+      <button
+        ref={ref}
+        disabled={isDisabled}
+        className={cn(
+          // Base styles
+          'inline-flex items-center justify-center',
+          'rounded-md',
+          'transition-normal',
+          'focus-ring',
+          // Variant & Size
+          variantStyles[variant],
+          iconButtonSizeStyles[size],
+          // State
+          isDisabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer',
+          className,
+        )}
+        {...props}
+      >
+        {isLoading ? <Spinner /> : icon}
+      </button>
+    );
+  },
+);
+
+IconButton.displayName = 'IconButton';
+
+/* Spinner */
+
+function Spinner() {
   return (
     <svg
-      className={`w-4 h-4 ${className}`}
+      className="w-4 h-4 animate-spin"
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"

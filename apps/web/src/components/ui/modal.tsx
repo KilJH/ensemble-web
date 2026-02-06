@@ -2,68 +2,87 @@
 
 import * as DialogPrimitive from '@radix-ui/react-dialog';
 import { forwardRef, type ComponentPropsWithoutRef } from 'react';
+import { cn } from '@/lib/utils';
+import { Button } from './button';
+
+export type ModalSize = 'sm' | 'md' | 'lg' | 'xl' | 'full';
 
 export const Modal = DialogPrimitive.Root;
 export const ModalTrigger = DialogPrimitive.Trigger;
 export const ModalClose = DialogPrimitive.Close;
 
-export const ModalContent = forwardRef<
-  HTMLDivElement,
-  ComponentPropsWithoutRef<typeof DialogPrimitive.Content> & {
-    size?: 'sm' | 'md' | 'lg' | 'xl' | 'full';
-  }
->(({ size = 'md', className = '', children, ...props }, ref) => {
-  const sizeStyles = {
-    sm: 'max-w-sm',
-    md: 'max-w-md',
-    lg: 'max-w-lg',
-    xl: 'max-w-xl',
-    full: 'max-w-[calc(100vw-2rem)] max-h-[calc(100vh-2rem)]',
-  };
+const sizeStyles: Record<ModalSize, string> = {
+  sm: 'max-w-sm',
+  md: 'max-w-md',
+  lg: 'max-w-lg',
+  xl: 'max-w-xl',
+  full: 'max-w-[calc(100vw-2rem)] max-h-[calc(100vh-2rem)]',
+};
 
-  return (
-    <DialogPrimitive.Portal>
-      <DialogPrimitive.Overlay className="fixed inset-0 z-modal-backdrop bg-black/50 backdrop-blur-sm animate-in fade-in-0" />
-      <DialogPrimitive.Content
-        ref={ref}
-        className={`
-          fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2
-          z-modal
-          w-full ${sizeStyles[size]}
-          p-6
-          bg-surface-elevated border border-border
-          rounded-xl shadow-xl
-          animate-in fade-in-0 zoom-in-95
-          focus:outline-none
-          ${className}
-        `}
-        {...props}
-      >
-        {children}
-        <DialogPrimitive.Close className="absolute top-4 right-4 p-1 rounded-md text-text-muted hover:text-text hover:bg-surface-2 transition-normal focus-ring">
-          <CloseIcon />
-          <span className="sr-only">Close</span>
-        </DialogPrimitive.Close>
-      </DialogPrimitive.Content>
-    </DialogPrimitive.Portal>
-  );
-});
+export interface ModalContentProps extends ComponentPropsWithoutRef<
+  typeof DialogPrimitive.Content
+> {
+  size?: ModalSize;
+  hideCloseButton?: boolean;
+}
+
+export const ModalContent = forwardRef<HTMLDivElement, ModalContentProps>(
+  ({ size = 'md', hideCloseButton = false, className, children, ...props }, ref) => {
+    return (
+      <DialogPrimitive.Portal>
+        <DialogPrimitive.Overlay
+          className={cn(
+            'fixed inset-0 z-modal-backdrop',
+            'bg-black/50 backdrop-blur-sm',
+            'animate-in fade-in-0',
+          )}
+        />
+        <DialogPrimitive.Content
+          ref={ref}
+          className={cn(
+            'fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2',
+            'z-modal w-full p-6',
+            'bg-surface-elevated border border-border',
+            'rounded-xl shadow-xl',
+            'animate-in fade-in-0 zoom-in-95',
+            'focus:outline-none',
+            sizeStyles[size],
+            className,
+          )}
+          {...props}
+        >
+          {children}
+          {!hideCloseButton && (
+            <DialogPrimitive.Close
+              className={cn(
+                'absolute top-4 right-4 p-1 rounded-md',
+                'text-text-muted hover:text-text hover:bg-surface-2',
+                'transition-normal focus-ring',
+              )}
+            >
+              <CloseIcon />
+              <span className="sr-only">Close</span>
+            </DialogPrimitive.Close>
+          )}
+        </DialogPrimitive.Content>
+      </DialogPrimitive.Portal>
+    );
+  },
+);
 ModalContent.displayName = 'ModalContent';
 
 export const ModalHeader = forwardRef<HTMLDivElement, ComponentPropsWithoutRef<'div'>>(
-  ({ className = '', ...props }, ref) => (
-    <div ref={ref} className={`mb-4 ${className}`} {...props} />
-  ),
+  ({ className, ...props }, ref) => <div ref={ref} className={cn('mb-4', className)} {...props} />,
 );
 ModalHeader.displayName = 'ModalHeader';
 
 export const ModalTitle = forwardRef<
   HTMLHeadingElement,
   ComponentPropsWithoutRef<typeof DialogPrimitive.Title>
->(({ className = '', ...props }, ref) => (
+>(({ className, ...props }, ref) => (
   <DialogPrimitive.Title
     ref={ref}
-    className={`text-lg font-semibold text-text ${className}`}
+    className={cn('text-lg font-semibold text-text', className)}
     {...props}
   />
 ));
@@ -72,18 +91,18 @@ ModalTitle.displayName = 'ModalTitle';
 export const ModalDescription = forwardRef<
   HTMLParagraphElement,
   ComponentPropsWithoutRef<typeof DialogPrimitive.Description>
->(({ className = '', ...props }, ref) => (
+>(({ className, ...props }, ref) => (
   <DialogPrimitive.Description
     ref={ref}
-    className={`mt-1 text-sm text-text-muted ${className}`}
+    className={cn('mt-1 text-sm text-text-muted', className)}
     {...props}
   />
 ));
 ModalDescription.displayName = 'ModalDescription';
 
 export const ModalFooter = forwardRef<HTMLDivElement, ComponentPropsWithoutRef<'div'>>(
-  ({ className = '', ...props }, ref) => (
-    <div ref={ref} className={`mt-6 flex justify-end gap-2 ${className}`} {...props} />
+  ({ className, ...props }, ref) => (
+    <div ref={ref} className={cn('mt-6 flex justify-end gap-2', className)} {...props} />
   ),
 );
 ModalFooter.displayName = 'ModalFooter';
@@ -97,16 +116,20 @@ function CloseIcon() {
 }
 
 /* Alert Dialog for confirmations */
-interface AlertDialogProps {
+
+export type AlertDialogVariant = 'default' | 'danger';
+
+export interface AlertDialogProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   title: string;
   description?: string;
   confirmLabel?: string;
   cancelLabel?: string;
-  variant?: 'default' | 'danger';
+  variant?: AlertDialogVariant;
   onConfirm: () => void;
   onCancel?: () => void;
+  isLoading?: boolean;
 }
 
 export function AlertDialog({
@@ -119,40 +142,36 @@ export function AlertDialog({
   variant = 'default',
   onConfirm,
   onCancel,
+  isLoading = false,
 }: AlertDialogProps) {
+  const handleCancel = () => {
+    onCancel?.();
+    onOpenChange(false);
+  };
+
+  const handleConfirm = () => {
+    onConfirm();
+    onOpenChange(false);
+  };
+
   return (
     <Modal open={open} onOpenChange={onOpenChange}>
-      <ModalContent size="sm">
+      <ModalContent size="sm" hideCloseButton>
         <ModalHeader>
           <ModalTitle>{title}</ModalTitle>
           {description && <ModalDescription>{description}</ModalDescription>}
         </ModalHeader>
         <ModalFooter>
-          <button
-            onClick={() => {
-              onCancel?.();
-              onOpenChange(false);
-            }}
-            className="px-4 py-2 text-sm font-medium text-text bg-surface-2 rounded-md hover:bg-border transition-normal focus-ring"
-          >
+          <Button variant="ghost" onClick={handleCancel} disabled={isLoading}>
             {cancelLabel}
-          </button>
-          <button
-            onClick={() => {
-              onConfirm();
-              onOpenChange(false);
-            }}
-            className={`
-              px-4 py-2 text-sm font-medium rounded-md transition-normal focus-ring
-              ${
-                variant === 'danger'
-                  ? 'bg-danger text-white hover:bg-red-600'
-                  : 'bg-primary text-primary-foreground hover:bg-primary-hover'
-              }
-            `}
+          </Button>
+          <Button
+            variant={variant === 'danger' ? 'danger' : 'primary'}
+            onClick={handleConfirm}
+            isLoading={isLoading}
           >
             {confirmLabel}
-          </button>
+          </Button>
         </ModalFooter>
       </ModalContent>
     </Modal>

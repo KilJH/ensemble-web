@@ -46,6 +46,100 @@
 
 상세: `docs/guides/05-ui-guidelines.md`
 
+## UI 컴포넌트 작성 원칙
+
+### 1. Variant / Size / State 매트릭스
+
+모든 UI 컴포넌트는 일관된 API를 따름:
+
+```tsx
+// 표준 Props 패턴
+interface ComponentProps {
+  variant?: 'primary' | 'secondary' | 'ghost' | ...;
+  size?: 'sm' | 'md' | 'lg';
+  // state props
+  disabled?: boolean;
+  isLoading?: boolean;
+  error?: string | boolean;
+}
+```
+
+### 2. Semantic Token 강제
+
+직접 색상값(HEX) 사용 금지. CSS 변수 기반 토큰만 사용:
+
+```tsx
+// Good
+'bg-surface text-text border-border';
+'bg-primary text-primary-foreground';
+'text-danger bg-danger-muted';
+
+// Bad
+'bg-white text-gray-900';
+'bg-[#10b981]';
+```
+
+### 3. cn() 유틸리티 사용
+
+클래스 병합 시 `@/lib/utils`의 `cn()` 함수 사용:
+
+```tsx
+import { cn } from '@/lib/utils';
+
+<div
+  className={cn(
+    'base-styles',
+    variant === 'primary' && 'variant-styles',
+    disabled && 'opacity-50',
+    className,
+  )}
+/>;
+```
+
+### 4. 일관된 State 클래스
+
+| State    | 클래스 패턴                                         |
+| -------- | --------------------------------------------------- |
+| Disabled | `opacity-50 cursor-not-allowed pointer-events-none` |
+| Loading  | `opacity-70 cursor-wait pointer-events-none`        |
+| Focus    | `focus-ring` (globals.css 정의)                     |
+| Error    | `border-danger focus:outline-danger`                |
+
+### 5. forwardRef 필수
+
+모든 컴포넌트는 `forwardRef`로 래핑:
+
+```tsx
+export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
+  ({ variant = 'primary', ...props }, ref) => <button ref={ref} {...props} />,
+);
+Button.displayName = 'Button';
+```
+
+### 6. HTML 속성과 충돌 회피
+
+HTML 기본 속성과 이름이 같은 prop은 `Omit`으로 제외:
+
+```tsx
+// input의 size 속성(number)과 커스텀 size(string) 충돌 해결
+interface InputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'size'> {
+  size?: 'sm' | 'md' | 'lg';
+}
+```
+
+### 7. 접근성 필수
+
+```tsx
+// 필수 ARIA 속성
+aria-invalid={hasError}
+aria-describedby={error ? `${id}-error` : hint ? `${id}-hint` : undefined}
+
+// IconButton은 aria-label 필수
+<IconButton icon={<TrashIcon />} aria-label="삭제" />
+```
+
+상세: `docs/guides/component-matrix.md`
+
 ## 프로젝트 구조
 
 ```
