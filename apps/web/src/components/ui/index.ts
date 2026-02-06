@@ -147,3 +147,12 @@ export { EnsembleIcon, MixerIcon, BandIcon, VolumeIcon, VolumeMuteIcon } from '.
 
 /* Icons - Recording */
 export { RecordIcon, WaveformIcon } from './icons';
+
+/* Icon System (Registry-based) */
+export {
+  Icon,
+  type IconComponentProps,
+  type IconName,
+  type IconSize,
+  type IconTone,
+} from './icons/index';
