@@ -1,9 +1,34 @@
+'use client';
+
+import Link from 'next/link';
+import { Button } from '@/shared/ui';
+import { useAuthStore } from '@/features/auth/session';
+
 export default function Home() {
+  const { isAuthenticated, isOnboarded, isLoading } = useAuthStore();
+
   return (
     <main className="flex min-h-screen flex-col items-center justify-center p-24">
-      <div className="z-10 max-w-5xl w-full items-center justify-center font-mono text-sm">
+      <div className="z-10 max-w-5xl w-full items-center justify-center text-sm">
         <h1 className="text-4xl font-bold text-center mb-4">앙상블 (Ensemble)</h1>
-        <p className="text-center text-lg mb-8">음악 동호인을 위한 워크스페이스 기반 SaaS</p>
+        <p className="text-center text-lg mb-8 text-gray-600">
+          음악 동호인을 위한 워크스페이스 기반 SaaS
+        </p>
+
+        <div className="flex justify-center mb-12">
+          {isLoading ? (
+            <div className="h-10 w-32 animate-pulse rounded-md bg-gray-200" />
+          ) : isAuthenticated ? (
+            <Link href={isOnboarded ? '/dashboard' : '/auth/onboarding'}>
+              <Button size="lg">{isOnboarded ? '대시보드로 이동' : '프로필 설정 완료하기'}</Button>
+            </Link>
+          ) : (
+            <Link href="/auth/login">
+              <Button size="lg">시작하기</Button>
+            </Link>
+          )}
+        </div>
+
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-8">
           <div className="p-6 border rounded-lg">
             <h2 className="text-xl font-semibold mb-2">합주 관리</h2>
