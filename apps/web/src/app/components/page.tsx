@@ -45,7 +45,7 @@ import {
   EditIcon,
   TrashIcon,
   SearchIcon,
-} from '@/components/ui';
+} from '@/shared/ui';
 
 export default function ComponentsPage() {
   const [alertOpen, setAlertOpen] = useState(false);

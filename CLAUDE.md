@@ -2,6 +2,84 @@
 
 이 문서는 Claude가 앙상블 프로젝트 작업 시 참조해야 할 핵심 정보를 담고 있습니다.
 
+## SDD (Specification-Driven Development)
+
+### 대원칙
+
+**"명세 없이 구현 없다"**
+
+모든 새 기능은 명세를 먼저 작성한 후 구현합니다.
+
+### 플로우
+
+```
+요구사항 분석 → 명세 작성 → 리뷰/승인 → 구현 → 검증
+```
+
+### 명세 상태
+
+| 상태          | 설명              |
+| ------------- | ----------------- |
+| `Draft`       | 작성 중           |
+| `Review`      | 리뷰 대기         |
+| `Approved`    | 승인됨, 구현 가능 |
+| `Implemented` | 구현 완료         |
+
+### 명세 파일 위치
+
+- 명세: `apps/web/spec/features/[feature-name]/spec.md`
+- 템플릿: `apps/web/spec/templates/`
+- 가이드: `apps/web/spec/README.md`
+
+### 명세 작성 원칙
+
+1. **구체적으로**: 모호한 표현 대신 명확한 기준 제시
+2. **검증 가능하게**: Acceptance Criteria 필수
+3. **독립적으로**: 다른 명세 참조 시 링크 명시
+4. **최신 유지**: 변경 시 명세도 업데이트
+
+## FSD (Feature-Sliced Design) 아키텍처
+
+### 레이어 구조
+
+```
+app → widgets → features → entities → shared
+```
+
+상위 레이어는 하위 레이어만 import 가능합니다. ESLint `boundaries` 플러그인으로 강제됩니다.
+
+### Import 규칙
+
+| From     | Allowed Imports                     |
+| -------- | ----------------------------------- |
+| app      | widgets, features, entities, shared |
+| widgets  | features, entities, shared          |
+| features | entities, shared                    |
+| entities | shared                              |
+| shared   | shared만                            |
+
+### Slice 내부 구조
+
+```
+features/[feature-name]/
+├── ui/           # 컴포넌트
+├── model/        # 상태, 타입, 훅
+├── api/          # API 호출
+└── index.ts      # Public API (barrel export)
+```
+
+### Public API 원칙
+
+각 slice는 `index.ts`를 통해서만 export:
+
+```typescript
+// Good
+import { LoginForm } from '@/features/auth/login';
+
+// Bad - 내부 구조 직접 접근
+import { LoginForm } from '@/features/auth/login/ui/LoginForm';
+```
+
 ## 프로젝트 개요
 
 **앙상블(Ensemble)** - 음악 동호인(밴드/아카펠라/오케스트라)을 위한 워크스페이스 기반 SaaS
@@ -81,10 +159,10 @@ interface ComponentProps {
 
 ### 3. cn() 유틸리티 사용
 
-클래스 병합 시 `@/lib/utils`의 `cn()` 함수 사용:
+클래스 병합 시 `@/shared/lib/utils`의 `cn()` 함수 사용:
 
 ```tsx
-import { cn } from '@/lib/utils';
+import { cn } from '@/shared/lib/utils';
 
 <div
   className={cn(
@@ -147,10 +225,17 @@ ensemble-web/
 ├── apps/
 │   ├── web/                      # Next.js Frontend
 │   │   ├── src/
-│   │   │   ├── app/             # App Router (페이지)
-│   │   │   ├── components/      # React 컴포넌트
-│   │   │   ├── lib/             # 유틸리티
-│   │   │   └── hooks/           # Custom hooks
+│   │   │   ├── app/             # App Router + FSD app layer
+│   │   │   ├── widgets/         # 독립적 UI 블록 (Header, Sidebar)
+│   │   │   ├── features/        # 비즈니스 기능 (login, create-workspace)
+│   │   │   ├── entities/        # 도메인 모델 (user, workspace, schedule)
+│   │   │   └── shared/          # 공유 리소스
+│   │   │       ├── ui/          # UI 컴포넌트
+│   │   │       ├── design/      # 디자인 시스템
+│   │   │       ├── lib/         # 유틸리티
+│   │   │       ├── config/      # 설정
+│   │   │       └── api/         # API 클라이언트
+│   │   ├── spec/                # SDD 명세
 │   │   ├── public/              # 정적 파일
 │   │   └── package.json
 │   │
@@ -256,14 +341,21 @@ apps/api/src/modules/[feature]/
     └── [feature].entity.ts
 ```
 
-#### 3. Frontend 페이지/컴포넌트 생성
+#### 3. Frontend 기능 개발 (FSD)
 
 ```bash
-# App Router 페이지
-apps/web/src/app/[route]/page.tsx
+# 1. 명세 작성 (SDD)
+apps/web/spec/features/[feature-name]/spec.md
 
-# 컴포넌트
-apps/web/src/components/[feature]/
+# 2. FSD 레이어에 기능 구현
+apps/web/src/features/[feature-name]/
+├── ui/           # 컴포넌트
+├── model/        # 상태, 타입
+├── api/          # API 호출
+└── index.ts      # Public API
+
+# 3. App Router 페이지
+apps/web/src/app/[route]/page.tsx
 ```
 
 ### 코드 스타일
