@@ -1,9 +1,13 @@
 import { NestFactory } from '@nestjs/core';
 import { ValidationPipe } from '@nestjs/common';
+import cookieParser from 'cookie-parser';
 import { AppModule } from './app.module';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+
+  // Cookie Parser
+  app.use(cookieParser());
 
   // CORS 설정
   app.enableCors({
@@ -25,7 +29,7 @@ async function bootstrap() {
 
   const port = process.env.PORT || 3001;
   await app.listen(port);
-  console.log(`🚀 API Server running on: http://localhost:${port}/api`);
+  console.log(`API Server running on: http://localhost:${port}/api`);
 }
 
 bootstrap();
