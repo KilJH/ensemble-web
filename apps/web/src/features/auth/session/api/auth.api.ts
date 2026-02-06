@@ -1,4 +1,4 @@
-import { apiClient } from '@/shared/api';
+import { apiClient, authClient } from '@/shared/api';
 import type {
   AuthResponse,
   GoogleAuthRequest,
@@ -8,12 +8,13 @@ import type { UserResponse } from '@hapzoo/types';
 
 export const authApi = {
   googleAuth: async (data: GoogleAuthRequest): Promise<AuthResponse> => {
-    const response = await apiClient.post<AuthResponse>('/auth/google', data);
+    const response = await authClient.post<AuthResponse>('/auth/google', data);
     return response.data;
   },
 
+  // Use authClient to avoid refresh loop
   refresh: async (): Promise<AuthResponse> => {
-    const response = await apiClient.post<AuthResponse>('/auth/refresh');
+    const response = await authClient.post<AuthResponse>('/auth/refresh');
     return response.data;
   },
 

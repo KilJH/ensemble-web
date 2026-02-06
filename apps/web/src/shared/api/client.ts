@@ -10,6 +10,7 @@ export const apiClient = axios.create({
 });
 
 let accessToken: string | null = null;
+let isRefreshing = false;
 
 export function setAccessToken(token: string | null) {
   accessToken = token;
@@ -29,20 +30,32 @@ apiClient.interceptors.request.use((config: InternalAxiosRequestConfig) => {
 apiClient.interceptors.response.use(
   (response) => response,
   async (error: AxiosError) => {
-    const originalRequest = error.config as InternalAxiosRequestConfig & { _retry?: boolean };
+    const originalRequest = error.config as InternalAxiosRequestConfig & {
+      _retry?: boolean;
+      _skipRefresh?: boolean;
+    };
 
-    if (error.response?.status === 401 && !originalRequest._retry) {
+    // Skip refresh for requests that explicitly don't want it
+    if (originalRequest._skipRefresh) {
+      return Promise.reject(error);
+    }
+
+    // Only try refresh once per request, and not if already refreshing
+    if (error.response?.status === 401 && !originalRequest._retry && !isRefreshing) {
       originalRequest._retry = true;
+      isRefreshing = true;
 
       try {
         const response = await apiClient.post('/auth/refresh');
         const newToken = response.data.accessToken;
         setAccessToken(newToken);
+        isRefreshing = false;
         originalRequest.headers.Authorization = `Bearer ${newToken}`;
         return apiClient(originalRequest);
       } catch {
         setAccessToken(null);
-        window.location.href = '/auth/login';
+        isRefreshing = false;
+        // Don't redirect here - let the calling code handle it
         return Promise.reject(error);
       }
     }
@@ -50,3 +63,12 @@ apiClient.interceptors.response.use(
     return Promise.reject(error);
   },
 );
+
+// Separate client for auth operations that shouldn't trigger refresh loop
+export const authClient = axios.create({
+  baseURL: `${env.API_URL}/api`,
+  withCredentials: true,
+  headers: {
+    'Content-Type': 'application/json',
+  },
+});
