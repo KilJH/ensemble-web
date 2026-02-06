@@ -61,3 +61,6 @@ Thumbs.db
 
 # Prisma
 prisma/migrations/*.sql
+
+## AI
+.serena

@@ -37,6 +37,15 @@
 - `@ensemble/tsconfig` - TypeScript 설정
 - `@ensemble/eslint-config` - ESLint 설정
 
+## UI 가이드라인
+
+- **테마**: 라이트/다크 모드 (CSS 변수 기반)
+- **반응형**: Mobile-first, Container Query
+- **최신 CSS**: `@layer`, `@scope`, `@container`, `:has()`, `@custom-media`
+- **SEO**: 메인 홈(`/`)만 크롤링 허용
+
+상세: `docs/guides/05-ui-guidelines.md`
+
 ## 프로젝트 구조
 
 ```

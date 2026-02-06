@@ -2,26 +2,223 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@media (prefers-color-scheme: dark) {
+@layer base {
+  /* ========================================
+   * Light Mode (Default)
+   * ======================================== */
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    /* Background & Surface */
+    --bg: #ffffff;
+    --surface: #f9fafb;
+    --surface-2: #f3f4f6;
+    --surface-elevated: #ffffff;
+
+    /* Glass (Glassmorphism) */
+    --glass-bg: rgba(255, 255, 255, 0.7);
+    --glass-border: rgba(255, 255, 255, 0.5);
+
+    /* Border */
+    --border: #e5e7eb;
+    --border-muted: #f3f4f6;
+
+    /* Text */
+    --text: #111827;
+    --text-muted: #6b7280;
+    --text-subtle: #9ca3af;
+
+    /* Primary (Green) */
+    --primary: #10b981;
+    --primary-hover: #059669;
+    --primary-pressed: #047857;
+    --primary-muted: rgba(16, 185, 129, 0.1);
+    --primary-foreground: #ffffff;
+
+    /* Secondary (Purple) */
+    --secondary: #8b5cf6;
+    --secondary-hover: #7c3aed;
+    --secondary-muted: rgba(139, 92, 246, 0.1);
+    --secondary-foreground: #ffffff;
+
+    /* Status */
+    --success: #10b981;
+    --warning: #f59e0b;
+    --danger: #ef4444;
+    --info: #3b82f6;
+
+    /* Focus & Ring */
+    --ring: #34d399;
+    --ring-offset: #ffffff;
+
+    /* Gradient */
+    --gradient-brand: linear-gradient(135deg, #10b981 0%, #8b5cf6 100%);
+    --gradient-brand-hover: linear-gradient(135deg, #059669 0%, #7c3aed 100%);
+    --gradient-surface: linear-gradient(180deg, #ffffff 0%, #f9fafb 100%);
+
+    /* Shadow */
+    --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.05);
+    --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1);
+    --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.05), 0 2px 4px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 8px 16px rgba(0, 0, 0, 0.05), 0 4px 8px rgba(0, 0, 0, 0.1);
+    --shadow-xl: 0 16px 32px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
+    --shadow-glass: 0 8px 32px rgba(0, 0, 0, 0.1),
+      inset 0 0 0 1px var(--glass-border);
+    --shadow-glow-primary: 0 0 20px rgba(16, 185, 129, 0.3);
+    --shadow-glow-secondary: 0 0 20px rgba(139, 92, 246, 0.3);
+
+    /* Animation */
+    --duration-fast: 150ms;
+    --duration-normal: 250ms;
+    --duration-slow: 350ms;
+    --ease-default: cubic-bezier(0.4, 0, 0.2, 1);
+    --ease-in: cubic-bezier(0.4, 0, 1, 1);
+    --ease-out: cubic-bezier(0, 0, 0.2, 1);
+    --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+    /* Z-Index */
+    --z-dropdown: 50;
+    --z-sticky: 100;
+    --z-fixed: 200;
+    --z-modal-backdrop: 300;
+    --z-modal: 400;
+    --z-popover: 500;
+    --z-tooltip: 600;
+
+    /* Blur */
+    --blur-sm: 4px;
+    --blur-md: 8px;
+    --blur-lg: 16px;
+    --blur-xl: 24px;
+  }
+
+  /* ========================================
+   * Dark Mode
+   * ======================================== */
+  .dark {
+    /* Background & Surface */
+    --bg: #0b1220;
+    --surface: #0f172a;
+    --surface-2: #111c34;
+    --surface-elevated: #1e293b;
+
+    /* Glass (Glassmorphism) */
+    --glass-bg: rgba(15, 23, 42, 0.8);
+    --glass-border: rgba(255, 255, 255, 0.1);
+
+    /* Border */
+    --border: #24314a;
+    --border-muted: #1e293b;
+
+    /* Text */
+    --text: #e5e7eb;
+    --text-muted: #94a3b8;
+    --text-subtle: #64748b;
+
+    /* Primary (Green - brighter for dark mode) */
+    --primary: #34d399;
+    --primary-hover: #10b981;
+    --primary-pressed: #059669;
+    --primary-muted: rgba(52, 211, 153, 0.15);
+    --primary-foreground: #06281c;
+
+    /* Secondary (Purple - brighter for dark mode) */
+    --secondary: #a78bfa;
+    --secondary-hover: #8b5cf6;
+    --secondary-muted: rgba(167, 139, 250, 0.15);
+    --secondary-foreground: #120a2a;
+
+    /* Focus & Ring */
+    --ring: #6ee7b7;
+    --ring-offset: #0b1220;
+
+    /* Gradient */
+    --gradient-brand: linear-gradient(135deg, #34d399 0%, #a78bfa 100%);
+    --gradient-brand-hover: linear-gradient(135deg, #10b981 0%, #8b5cf6 100%);
+    --gradient-surface: linear-gradient(180deg, #0f172a 0%, #0b1220 100%);
+
+    /* Shadow (darker for dark mode) */
+    --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.2);
+    --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.2), 0 1px 2px rgba(0, 0, 0, 0.3);
+    --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.2), 0 2px 4px rgba(0, 0, 0, 0.3);
+    --shadow-lg: 0 8px 16px rgba(0, 0, 0, 0.2), 0 4px 8px rgba(0, 0, 0, 0.3);
+    --shadow-xl: 0 16px 32px rgba(0, 0, 0, 0.3), 0 8px 16px rgba(0, 0, 0, 0.3);
+    --shadow-glass: 0 8px 32px rgba(0, 0, 0, 0.4),
+      inset 0 0 0 1px var(--glass-border);
+    --shadow-glow-primary: 0 0 20px rgba(52, 211, 153, 0.4);
+    --shadow-glow-secondary: 0 0 20px rgba(167, 139, 250, 0.4);
+  }
+
+  /* Base styles */
+  body {
+    background-color: var(--bg);
+    color: var(--text);
+    font-family:
+      system-ui,
+      -apple-system,
+      BlinkMacSystemFont,
+      'Segoe UI',
+      Roboto,
+      sans-serif;
   }
 }
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+@layer components {
+  /* ========================================
+   * Glassmorphism Utilities
+   * ======================================== */
+  .glass {
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--blur-lg));
+    -webkit-backdrop-filter: blur(var(--blur-lg));
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--shadow-glass);
+  }
+
+  .glass-subtle {
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--blur-md));
+    -webkit-backdrop-filter: blur(var(--blur-md));
+    border: 1px solid var(--glass-border);
+  }
+
+  .glass-strong {
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--blur-xl));
+    -webkit-backdrop-filter: blur(var(--blur-xl));
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--shadow-glass);
+  }
+
+  /* ========================================
+   * Focus Ring
+   * ======================================== */
+  .focus-ring {
+    outline: none;
+  }
+
+  .focus-ring:focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 2px;
+  }
 }
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
+  }
+
+  /* Transition utilities */
+  .transition-fast {
+    transition-duration: var(--duration-fast);
+    transition-timing-function: var(--ease-default);
+  }
+
+  .transition-normal {
+    transition-duration: var(--duration-normal);
+    transition-timing-function: var(--ease-default);
+  }
+
+  .transition-slow {
+    transition-duration: var(--duration-slow);
+    transition-timing-function: var(--ease-default);
   }
 }
