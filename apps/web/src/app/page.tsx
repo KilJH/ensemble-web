@@ -15,17 +15,24 @@ export default function Home() {
           Ensemble Playground for Music Communities
         </p>
 
-        <div className="flex justify-center mb-12">
+        <div className="flex flex-col items-center gap-4 mb-12">
           {isLoading ? (
-            <div className="h-10 w-32 animate-pulse rounded-md bg-gray-200" />
+            <div className="h-12 w-40 animate-pulse rounded-md bg-gray-200" />
           ) : isAuthenticated ? (
             <Link href={isOnboarded ? '/dashboard' : '/auth/onboarding'}>
-              <Button size="lg">{isOnboarded ? '대시보드로 이동' : '프로필 설정 완료하기'}</Button>
+              <Button size="lg" className="text-lg px-8 py-6">
+                {isOnboarded ? '대시보드로 이동' : '프로필 설정 완료하기'}
+              </Button>
             </Link>
           ) : (
-            <Link href="/auth/login">
-              <Button size="lg">시작하기</Button>
-            </Link>
+            <>
+              <Link href="/auth/login">
+                <Button size="lg" className="text-lg px-8 py-6">
+                  로그인 / 회원가입
+                </Button>
+              </Link>
+              <p className="text-sm text-gray-500">Google 계정으로 간편하게 시작하세요</p>
+            </>
           )}
         </div>
 
