@@ -78,32 +78,33 @@ export { Pagination } from './pagination';
 export { DataTable, type ColumnDef } from './table';
 export { Calendar, DatePicker, DateRangePicker } from './calendar';
 
-/* Icons */
+/* Icons - Navigation */
+export { HomeIcon, MenuIcon, SearchIcon, SettingsIcon } from './icons';
+
+/* Icons - Actions */
+export { PlusIcon, EditIcon, TrashIcon, CloseIcon, CheckIcon } from './icons';
+
+/* Icons - Arrows */
 export {
-  HomeIcon,
-  MenuIcon,
-  SearchIcon,
-  SettingsIcon,
-  PlusIcon,
-  EditIcon,
-  TrashIcon,
-  CloseIcon,
-  CheckIcon,
   ChevronDownIcon,
   ChevronUpIcon,
   ChevronLeftIcon,
   ChevronRightIcon,
   ArrowLeftIcon,
   ArrowRightIcon,
-  UserIcon,
-  UsersIcon,
-  MusicIcon,
-  CalendarIcon,
-  ClockIcon,
-  BellIcon,
-  AlertCircleIcon,
-  CheckCircleIcon,
-  InfoIcon,
+} from './icons';
+
+/* Icons - User */
+export { UserIcon, UsersIcon } from './icons';
+
+/* Icons - General */
+export { CalendarIcon, ClockIcon, BellIcon, HeadphonesIcon } from './icons';
+
+/* Icons - Status */
+export { AlertCircleIcon, CheckCircleIcon, InfoIcon } from './icons';
+
+/* Icons - Misc */
+export {
   MoreHorizontalIcon,
   MoreVerticalIcon,
   ExternalLinkIcon,
@@ -111,3 +112,38 @@ export {
   SunIcon,
   MoonIcon,
 } from './icons';
+
+/* Icons - Music Playback */
+export {
+  PlayIcon,
+  PauseIcon,
+  StopIcon,
+  SkipBackIcon,
+  SkipForwardIcon,
+  LoopIcon,
+  RepeatIcon,
+  ShuffleIcon,
+} from './icons';
+
+/* Icons - Music Notes & Symbols */
+export {
+  MusicIcon,
+  MusicNoteIcon,
+  MusicNotesIcon,
+  SheetMusicIcon,
+  TrebleClefIcon,
+  BassClefIcon,
+  ChordIcon,
+} from './icons';
+
+/* Icons - Music Practice */
+export { MetronomeIcon, PracticeIcon, TempoIcon } from './icons';
+
+/* Icons - Instruments */
+export { MicIcon, GuitarIcon, BassIcon, DrumIcon, KeyboardIcon, PianoIcon } from './icons';
+
+/* Icons - Ensemble */
+export { EnsembleIcon, MixerIcon, BandIcon, VolumeIcon, VolumeMuteIcon } from './icons';
+
+/* Icons - Recording */
+export { RecordIcon, WaveformIcon } from './icons';

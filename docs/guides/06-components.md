@@ -270,41 +270,114 @@ const columns: ColumnDef<User>[] = [
 
 ## 아이콘
 
+### 디자인 가이드
+
+| 속성   | 값                                                        |
+| ------ | --------------------------------------------------------- |
+| 스타일 | Outline (stroke) 기본, fill은 상태/강조용                 |
+| Stroke | 1.5px (16px) / 2px (20px, 24px)                           |
+| 사이즈 | 16 / 20 / 24                                              |
+| 색상   | `text-muted` (기본), `text-primary` (강조), status colors |
+
+```tsx
+// 기본 사용
+<HomeIcon size={24} className="text-text-muted" />
+
+// 강조
+<MusicIcon size={20} className="text-primary" />
+
+// 상태
+<CheckCircleIcon className="text-success" />
+```
+
+### 일반 아이콘
+
+```tsx
+// Navigation
+(HomeIcon, MenuIcon, SearchIcon, SettingsIcon);
+
+// Actions
+(PlusIcon, EditIcon, TrashIcon, CloseIcon, CheckIcon);
+
+// Arrows
+(ChevronDownIcon, ChevronUpIcon, ChevronLeftIcon, ChevronRightIcon);
+(ArrowLeftIcon, ArrowRightIcon);
+
+// User
+(UserIcon, UsersIcon);
+
+// General
+(CalendarIcon, ClockIcon, BellIcon, HeadphonesIcon);
+
+// Status
+(AlertCircleIcon, CheckCircleIcon, InfoIcon);
+
+// Misc
+(MoreHorizontalIcon, MoreVerticalIcon, ExternalLinkIcon, LogOutIcon);
+(SunIcon, MoonIcon);
+```
+
+### 음악 아이콘
+
+```tsx
+// 재생 컨트롤
+(PlayIcon, PauseIcon, StopIcon);
+(SkipBackIcon, SkipForwardIcon);
+(LoopIcon, RepeatIcon, ShuffleIcon);
+
+// 음표 & 기호
+MusicNoteIcon; // 단음표
+MusicNotesIcon; // 복수 음표
+SheetMusicIcon; // 악보
+TrebleClefIcon; // 높은음자리표
+BassClefIcon; // 낮은음자리표
+ChordIcon; // 코드 (C, G, Am)
+
+// 연습 도구
+MetronomeIcon; // 메트로놈
+PracticeIcon; // 연습 (Play + Metronome)
+TempoIcon; // 템포
+
+// 악기
+MicIcon; // 마이크 (보컬)
+GuitarIcon; // 기타
+BassIcon; // 베이스
+DrumIcon; // 드럼
+KeyboardIcon; // 건반
+PianoIcon; // 피아노 (= KeyboardIcon)
+
+// 합주 & 협업
+EnsembleIcon; // 합주 (그룹 + 음표)
+MixerIcon; // 믹서
+BandIcon; // 밴드
+VolumeIcon; // 볼륨
+VolumeMuteIcon; // 음소거
+
+// 녹음
+RecordIcon; // 녹음 (filled)
+WaveformIcon; // 파형
+```
+
+### 사용 예시
+
 ```tsx
 import {
-  HomeIcon,
-  MenuIcon,
-  SearchIcon,
-  SettingsIcon,
-  PlusIcon,
-  EditIcon,
-  TrashIcon,
-  CloseIcon,
-  CheckIcon,
-  ChevronDownIcon,
-  ChevronUpIcon,
-  ChevronLeftIcon,
-  ChevronRightIcon,
-  ArrowLeftIcon,
-  ArrowRightIcon,
-  UserIcon,
-  UsersIcon,
-  MusicIcon,
-  CalendarIcon,
-  ClockIcon,
-  BellIcon,
-  AlertCircleIcon,
-  CheckCircleIcon,
-  InfoIcon,
-  MoreHorizontalIcon,
-  MoreVerticalIcon,
-  ExternalLinkIcon,
-  LogOutIcon,
-  SunIcon,
-  MoonIcon,
+  GuitarIcon, DrumIcon, KeyboardIcon, MicIcon,
+  PlayIcon, MetronomeIcon, EnsembleIcon
 } from '@/components/ui';
 
-<HomeIcon size={24} className="text-primary" />;
+// 파트 선택
+<GuitarIcon size={20} className="text-text-muted" />
+<DrumIcon size={20} className="text-primary" />
+
+// 재생 버튼
+<Button>
+  <PlayIcon size={16} />
+  재생
+</Button>
+
+// 합주 표시
+<EnsembleIcon size={24} className="text-primary" />
 ```
 
 ---
