@@ -26,17 +26,18 @@
     --text-muted: #6b7280;
     --text-subtle: #9ca3af;
 
-    /* Primary (Green) */
-    --primary: #10b981;
-    --primary-hover: #059669;
-    --primary-pressed: #047857;
-    --primary-muted: rgba(16, 185, 129, 0.1);
+    /* Primary (Lime - 흰양파 초록) */
+    --primary: #84cc16;
+    --primary-hover: #65a30d;
+    --primary-pressed: #4d7c0f;
+    --primary-muted: rgba(132, 204, 22, 0.1);
     --primary-foreground: #ffffff;
 
-    /* Secondary (Purple) */
-    --secondary: #8b5cf6;
-    --secondary-hover: #7c3aed;
-    --secondary-muted: rgba(139, 92, 246, 0.1);
+    /* Secondary (Wine Fuchsia - 적양파 자주) */
+    --secondary: #86198f;
+    --secondary-hover: #701a75;
+    --secondary-pressed: #581c87;
+    --secondary-muted: rgba(134, 25, 143, 0.1);
     --secondary-foreground: #ffffff;
 
     /* Status */
@@ -46,12 +47,12 @@
     --info: #3b82f6;
 
     /* Focus & Ring */
-    --ring: #34d399;
+    --ring: #bef264;
     --ring-offset: #ffffff;
 
     /* Gradient */
-    --gradient-brand: linear-gradient(135deg, #10b981 0%, #8b5cf6 100%);
-    --gradient-brand-hover: linear-gradient(135deg, #059669 0%, #7c3aed 100%);
+    --gradient-brand: linear-gradient(135deg, #84cc16 0%, #86198f 100%);
+    --gradient-brand-hover: linear-gradient(135deg, #65a30d 0%, #701a75 100%);
     --gradient-surface: linear-gradient(180deg, #ffffff 0%, #f9fafb 100%);
 
     /* Shadow */
@@ -60,10 +61,9 @@
     --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.05), 0 2px 4px rgba(0, 0, 0, 0.1);
     --shadow-lg: 0 8px 16px rgba(0, 0, 0, 0.05), 0 4px 8px rgba(0, 0, 0, 0.1);
     --shadow-xl: 0 16px 32px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
-    --shadow-glass: 0 8px 32px rgba(0, 0, 0, 0.1),
-      inset 0 0 0 1px var(--glass-border);
-    --shadow-glow-primary: 0 0 20px rgba(16, 185, 129, 0.3);
-    --shadow-glow-secondary: 0 0 20px rgba(139, 92, 246, 0.3);
+    --shadow-glass: 0 8px 32px rgba(0, 0, 0, 0.1), inset 0 0 0 1px var(--glass-border);
+    --shadow-glow-primary: 0 0 20px rgba(132, 204, 22, 0.3);
+    --shadow-glow-secondary: 0 0 20px rgba(134, 25, 143, 0.3);
 
     /* Animation */
     --duration-fast: 150ms;
@@ -113,26 +113,27 @@
     --text-muted: #94a3b8;
     --text-subtle: #64748b;
 
-    /* Primary (Green - brighter for dark mode) */
-    --primary: #34d399;
-    --primary-hover: #10b981;
-    --primary-pressed: #059669;
-    --primary-muted: rgba(52, 211, 153, 0.15);
-    --primary-foreground: #06281c;
+    /* Primary (Lime - brighter for dark mode) */
+    --primary: #a3e635;
+    --primary-hover: #84cc16;
+    --primary-pressed: #65a30d;
+    --primary-muted: rgba(163, 230, 53, 0.15);
+    --primary-foreground: #1a2e05;
 
-    /* Secondary (Purple - brighter for dark mode) */
-    --secondary: #a78bfa;
-    --secondary-hover: #8b5cf6;
-    --secondary-muted: rgba(167, 139, 250, 0.15);
-    --secondary-foreground: #120a2a;
+    /* Secondary (Wine Fuchsia - brighter for dark mode) */
+    --secondary: #a21caf;
+    --secondary-hover: #86198f;
+    --secondary-pressed: #701a75;
+    --secondary-muted: rgba(162, 28, 175, 0.15);
+    --secondary-foreground: #fdf4ff;
 
     /* Focus & Ring */
-    --ring: #6ee7b7;
+    --ring: #d9f99d;
     --ring-offset: #0b1220;
 
     /* Gradient */
-    --gradient-brand: linear-gradient(135deg, #34d399 0%, #a78bfa 100%);
-    --gradient-brand-hover: linear-gradient(135deg, #10b981 0%, #8b5cf6 100%);
+    --gradient-brand: linear-gradient(135deg, #a3e635 0%, #a21caf 100%);
+    --gradient-brand-hover: linear-gradient(135deg, #84cc16 0%, #86198f 100%);
     --gradient-surface: linear-gradient(180deg, #0f172a 0%, #0b1220 100%);
 
     /* Shadow (darker for dark mode) */
@@ -141,10 +142,9 @@
     --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.2), 0 2px 4px rgba(0, 0, 0, 0.3);
     --shadow-lg: 0 8px 16px rgba(0, 0, 0, 0.2), 0 4px 8px rgba(0, 0, 0, 0.3);
     --shadow-xl: 0 16px 32px rgba(0, 0, 0, 0.3), 0 8px 16px rgba(0, 0, 0, 0.3);
-    --shadow-glass: 0 8px 32px rgba(0, 0, 0, 0.4),
-      inset 0 0 0 1px var(--glass-border);
-    --shadow-glow-primary: 0 0 20px rgba(52, 211, 153, 0.4);
-    --shadow-glow-secondary: 0 0 20px rgba(167, 139, 250, 0.4);
+    --shadow-glass: 0 8px 32px rgba(0, 0, 0, 0.4), inset 0 0 0 1px var(--glass-border);
+    --shadow-glow-primary: 0 0 20px rgba(163, 230, 53, 0.4);
+    --shadow-glow-secondary: 0 0 20px rgba(162, 28, 175, 0.4);
   }
 
   /* Base styles */

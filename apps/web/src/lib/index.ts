@@ -1,11 +1,5 @@
-export { cn, generateId } from './utils';
-export { createVariants, type VariantPropsOf } from './variants';
-export {
-  stateClasses,
-  sizeTokens,
-  radiusTokens,
-  shadowTokens,
-  type ComponentSize,
-  type InputSize,
-  type SemanticVariant,
-} from './component-states';
+/**
+ * @deprecated Import from '@/design' instead
+ * 하위 호환을 위해 유지
+ */
+export * from '@/design';
