@@ -23,6 +23,11 @@ export {
   blurTokens,
   type RadiusSize,
   type ShadowSize,
+  // Spacing
+  spacingTokens,
+  layoutSpacing,
+  componentSpacing,
+  type SpacingKey,
 } from './tokens';
 
 // Utilities

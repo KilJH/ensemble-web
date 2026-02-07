@@ -1,42 +1,14 @@
 'use client';
 
-import { createContext, forwardRef, useContext, type HTMLAttributes, type ReactNode } from 'react';
-
-/* Sidebar Context */
-interface SidebarContextValue {
-  collapsed: boolean;
-}
-
-const SidebarContext = createContext<SidebarContextValue>({ collapsed: false });
-
-function useSidebar() {
-  return useContext(SidebarContext);
-}
+import { forwardRef, type HTMLAttributes, type ReactNode } from 'react';
 
 /* Sidebar Root */
-interface SidebarProps extends HTMLAttributes<HTMLElement> {
-  collapsed?: boolean;
-}
-
-export const Sidebar = forwardRef<HTMLElement, SidebarProps>(
-  ({ collapsed = false, className = '', children, ...props }, ref) => {
+export const Sidebar = forwardRef<HTMLElement, HTMLAttributes<HTMLElement>>(
+  ({ className = '', children, ...props }, ref) => {
     return (
-      <SidebarContext.Provider value={{ collapsed }}>
-        <aside
-          ref={ref}
-          className={`
-            flex flex-col
-            h-full
-            bg-surface border-r border-border
-            transition-normal
-            ${collapsed ? 'w-16' : 'w-64'}
-            ${className}
-          `}
-          {...props}
-        >
-          {children}
-        </aside>
-      </SidebarContext.Provider>
+      <aside ref={ref} className={`flex flex-col h-full w-56 ${className}`} {...props}>
+        {children}
+      </aside>
     );
   },
 );
@@ -51,7 +23,7 @@ export const SidebarHeader = forwardRef<HTMLDivElement, SidebarHeaderProps>(
     return (
       <div
         ref={ref}
-        className={`flex items-center h-16 px-4 border-b border-border ${className}`}
+        className={`flex items-center h-16 px-4 border-b border-border/50 bg-gradient-to-r from-primary/5 to-transparent ${className}`}
         {...props}
       >
         {children}
@@ -84,11 +56,9 @@ interface SidebarGroupProps extends HTMLAttributes<HTMLDivElement> {
 
 export const SidebarGroup = forwardRef<HTMLDivElement, SidebarGroupProps>(
   ({ label, className = '', children, ...props }, ref) => {
-    const { collapsed } = useSidebar();
-
     return (
       <div ref={ref} className={`py-2 ${className}`} {...props}>
-        {label && !collapsed && (
+        {label && (
           <div className="px-3 py-2 text-xs font-medium text-text-muted uppercase tracking-wider">
             {label}
           </div>
@@ -110,37 +80,28 @@ interface SidebarItemProps extends HTMLAttributes<HTMLButtonElement> {
 
 export const SidebarItem = forwardRef<HTMLButtonElement, SidebarItemProps>(
   ({ icon, active = false, disabled = false, className = '', children, ...props }, ref) => {
-    const { collapsed } = useSidebar();
-
     return (
       <button
         ref={ref}
         disabled={disabled}
         className={`
-          relative
           flex items-center gap-3
-          w-full px-3 py-2
-          text-left text-sm font-medium
-          rounded-md
-          transition-normal
-          focus-ring
+          w-full px-3 py-2.5
+          text-left text-sm
+          rounded-lg
+          transition-colors
           ${
             active
-              ? 'bg-primary-muted text-primary'
+              ? 'bg-primary/10 text-primary font-medium'
               : 'text-text-muted hover:bg-surface-2 hover:text-text'
           }
           ${disabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}
-          ${collapsed ? 'justify-center' : ''}
           ${className}
         `}
         {...props}
       >
-        {/* Active indicator */}
-        {active && (
-          <span className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-5 bg-primary rounded-r-full" />
-        )}
-        {icon && <span className="flex-shrink-0 w-5 h-5">{icon}</span>}
-        {!collapsed && <span className="truncate">{children}</span>}
+        {icon && <span className="flex-shrink-0">{icon}</span>}
+        <span className="truncate">{children}</span>
       </button>
     );
   },
@@ -154,11 +115,7 @@ interface SidebarFooterProps extends HTMLAttributes<HTMLDivElement> {}
 export const SidebarFooter = forwardRef<HTMLDivElement, SidebarFooterProps>(
   ({ className = '', children, ...props }, ref) => {
     return (
-      <div
-        ref={ref}
-        className={`flex items-center p-4 border-t border-border ${className}`}
-        {...props}
-      >
+      <div ref={ref} className={`p-2 ${className}`} {...props}>
         {children}
       </div>
     );

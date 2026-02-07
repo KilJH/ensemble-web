@@ -25,6 +25,7 @@ export interface WorkspaceMember {
   workspaceId: string;
   role: WorkspaceRole;
   part: PartCategory | null;
+  displayName: string | null;
   joinedAt: Date;
   updatedAt: Date;
   user?: UserResponse;
@@ -55,6 +56,7 @@ export interface AddMemberDto {
 export interface UpdateMemberDto {
   role?: WorkspaceRole;
   part?: PartCategory;
+  displayName?: string;
 }
 
 // ========== Responses ==========
@@ -81,6 +83,7 @@ export interface WorkspaceMemberResponse {
   workspaceId: string;
   role: WorkspaceRole;
   part: PartCategory | null;
+  displayName: string | null;
   joinedAt: string;
   user: UserResponse;
 }

@@ -14,3 +14,5 @@ export {
   type RadiusSize,
   type ShadowSize,
 } from './effects';
+
+export { spacingTokens, layoutSpacing, componentSpacing, type SpacingKey } from './spacing';

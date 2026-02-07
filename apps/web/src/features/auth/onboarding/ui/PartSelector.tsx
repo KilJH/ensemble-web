@@ -18,7 +18,7 @@ const PARTS: PartOption[] = [
   { value: 'BRASS', label: '관악기', emoji: '🎺' },
   { value: 'STRINGS', label: '현악기', emoji: '🎻' },
   { value: 'PERCUSSION', label: '타악기', emoji: '🪘' },
-  { value: 'OTHER', label: '기타', emoji: '🎵' },
+  { value: 'OTHER', label: '그 외', emoji: '🎵' },
 ];
 
 interface PartSelectorProps {

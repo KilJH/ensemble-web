@@ -96,6 +96,7 @@ model WorkspaceMember {
   workspaceId String
   role        WorkspaceRole @default(MEMBER)
   part        PartCategory?
+  displayName String?       // 워크스페이스별 닉네임 (null이면 User.nickname 사용)
   joinedAt    DateTime      @default(now())
   updatedAt   DateTime      @updatedAt
 
