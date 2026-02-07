@@ -5,7 +5,7 @@ export class GoogleAuthDto {
   @IsNotEmpty()
   code!: string;
 
-  @IsUrl()
+  @IsUrl({ require_tld: false })
   @IsOptional()
   redirectUri?: string;
 }
