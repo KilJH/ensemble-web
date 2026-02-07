@@ -113,14 +113,14 @@ export const componentSpacing = {
 
   // 사이드바
   sidebar: {
-    padding: 'p-3',
-    itemPadding: 'px-3 py-2.5',
-    itemGap: 'gap-1',
+    padding: 'p-2',
+    itemPadding: 'px-2 py-1.5',
+    itemGap: 'gap-0.5',
   },
 
   // 헤더
   header: {
-    height: 'h-14',
-    padding: 'px-6',
+    height: 'h-12',
+    padding: 'px-4',
   },
 } as const;

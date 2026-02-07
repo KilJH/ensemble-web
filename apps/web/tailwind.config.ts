@@ -2,11 +2,7 @@ import type { Config } from 'tailwindcss';
 
 const config: Config = {
   darkMode: 'class',
-  content: [
-    './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
-    './src/components/**/*.{js,ts,jsx,tsx,mdx}',
-    './src/app/**/*.{js,ts,jsx,tsx,mdx}',
-  ],
+  content: ['./src/**/*.{js,ts,jsx,tsx,mdx}'],
   theme: {
     extend: {
       colors: {
@@ -74,6 +70,12 @@ const config: Config = {
           800: '#86198f',
           900: '#701a75',
         },
+      },
+
+      spacing: {
+        rail: 'var(--rail-width)',
+        sidebar: 'var(--sidebar-width)',
+        header: 'var(--header-height)',
       },
 
       boxShadow: {
