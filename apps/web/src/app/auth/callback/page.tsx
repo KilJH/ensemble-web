@@ -1,10 +1,10 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { Suspense, useEffect, useRef } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { authApi, useAuthStore } from '@/features/auth/session';
 
-export default function AuthCallbackPage() {
+function CallbackHandler() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const { setAuth } = useAuthStore();
@@ -36,7 +36,8 @@ export default function AuthCallbackPage() {
         setAuth(user, accessToken);
         router.push(user.isOnboarded ? '/dashboard' : '/auth/onboarding');
       })
-      .catch(() => {
+      .catch((err) => {
+        console.error('Google auth failed:', err);
         router.push('/auth/login?error=auth_failed');
       });
   }, [searchParams, router, setAuth]);
@@ -48,5 +49,22 @@ export default function AuthCallbackPage() {
         <p className="mt-4 text-gray-600">로그인 처리 중...</p>
       </div>
     </div>
+  );
+}
+
+export default function AuthCallbackPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="flex min-h-screen items-center justify-center">
+          <div className="text-center">
+            <div className="mx-auto h-8 w-8 animate-spin rounded-full border-4 border-primary border-t-transparent" />
+            <p className="mt-4 text-gray-600">로그인 처리 중...</p>
+          </div>
+        </div>
+      }
+    >
+      <CallbackHandler />
+    </Suspense>
   );
 }
